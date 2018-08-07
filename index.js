@@ -103,7 +103,8 @@ class SortRow extends React.Component {
   constructor(props) {
     super(props)
     const layout = props.list.state.active.layout
-    const wrapperLayout = props.list.wrapperLayout
+    const { wrapperLayout = {} } = props.list;
+    const { pageY = 0 } = wrapperLayout;
 
     this.state = {
       style: {
@@ -114,7 +115,7 @@ class SortRow extends React.Component {
         height: layout.frameHeight,
         overflow: 'hidden',
         backgroundColor: 'transparent',
-        marginTop: layout.pageY - wrapperLayout.pageY, // Account for top bar spacing
+        marginTop: layout.pageY - pageY, // Account for top bar spacing
       },
     }
   }
@@ -308,7 +309,10 @@ class SortableListView extends React.Component {
         return requestAnimationFrame(this.scrollAnimation)
       }
 
-      const SCROLL_OFFSET = this.wrapperLayout.pageY
+      const { wrapperLayout = {} } = this;
+      const { pageY = 0 } = wrapperLayout;
+
+      const SCROLL_OFFSET = pageY;
       const moveY = this.moveY - SCROLL_OFFSET
       const SCROLL_LOWER_BOUND = 80
       const SCROLL_HIGHER_BOUND = this.listLayout.height - SCROLL_LOWER_BOUND
@@ -353,7 +357,10 @@ class SortableListView extends React.Component {
     const SLOP = this.direction === 'down' ? itemHeight : 0
     const scrollValue = this.scrollValue
 
-    const moveY = this.moveY - this.wrapperLayout.pageY
+    const { wrapperLayout = {} } = this;
+    const { pageY = 0 } = wrapperLayout;
+
+    const moveY = this.moveY - pageY;
 
     const activeRowY = scrollValue + moveY - this.firstRowY
 
