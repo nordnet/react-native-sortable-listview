@@ -3,6 +3,9 @@
   "version": "0.2.8",
   "description": "Drag drop capable wrapper of ListView for React Native",
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "prettier": "prettier --write $npm_package_config_prettier \"*.js\"",
     "test": "jest"
